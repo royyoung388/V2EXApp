@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by roy on 17-8-1.
  */
 
-public class NodePOJO implements POJO{
+public class NodePOJO implements POJO {
     private int id;
     private String name;
     private String title;
@@ -14,6 +14,7 @@ public class NodePOJO implements POJO{
     private String titleAlternative;
     private String url;
     private String topics;
+    private String header;
     @SerializedName("avatar_mini")
     private String avatarMini;
     @SerializedName("avatar_normal")
@@ -43,6 +44,11 @@ public class NodePOJO implements POJO{
 
     public String getTopics() {
         return topics;
+    }
+
+
+    public String getHeader() {
+        return header;
     }
 
     public String getAvatarMini() {

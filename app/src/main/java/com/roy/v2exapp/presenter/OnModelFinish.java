@@ -1,5 +1,6 @@
 package com.roy.v2exapp.presenter;
 
+import com.roy.v2exapp.beans.NodePOJO;
 import com.roy.v2exapp.beans.POJO;
 
 /**
@@ -17,6 +18,7 @@ public interface OnModelFinish {
 
     /**
      * 失败时回调
+     * @param type
      */
-    void OnFailed();
+    void OnFailed(int type);
 }

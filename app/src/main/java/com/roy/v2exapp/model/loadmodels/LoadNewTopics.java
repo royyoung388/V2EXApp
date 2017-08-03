@@ -3,7 +3,7 @@ package com.roy.v2exapp.model.loadmodels;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.roy.v2exapp.beans.NewTopicsPOJO;
+import com.roy.v2exapp.beans.TopicPOJO;
 import com.roy.v2exapp.presenter.OnModelFinish;
 import com.roy.v2exapp.utils.Info;
 import com.roy.v2exapp.utils.StreamReader;
@@ -33,27 +33,28 @@ public class LoadNewTopics extends Thread{
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setReadTimeout(3000);
-            conn.setUseCaches(false);
 
             String json = null;
             if (conn.getResponseCode() == 200) {
                 json = StreamReader.stream2String(conn.getInputStream());
             }
 
-            if (json == null) {
-                return;
+            if (json == null || json.equals("")) {
+                onFinish.OnFailed(Info.LOAD_TOPIC_REPLIES);
             }
 
             Gson gson = new Gson();
-            NewTopicsPOJO newTopics[] = gson.fromJson(json, NewTopicsPOJO[].class);
+            TopicPOJO newTopics[] = gson.fromJson(json, TopicPOJO[].class);
 
             //接口回调
             if (newTopics == null) {
-                onFinish.OnFailed();
+                onFinish.OnFailed(Info.LOAD_TOPIC_REPLIES);
             } else {
+                Log.i("LoadNewTopics", "Loaded New Topics");
                 onFinish.OnSuccess(newTopics, Info.LOAD_NEW_TOPICS);
             }
-            Log.i("LoadNewTopics", "Loaded New Topics");
+
+            conn.disconnect();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

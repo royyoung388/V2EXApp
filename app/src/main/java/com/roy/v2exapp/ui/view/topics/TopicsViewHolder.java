@@ -18,11 +18,11 @@ public class TopicsViewHolder extends RecyclerView.ViewHolder {
 
     public TopicsViewHolder(View itemView) {
         super(itemView);
-        name = (TextView) itemView.findViewById(R.id.new_topics_item_name);
-        title = (TextView) itemView.findViewById(R.id.new_topics_item_title);
+        name = (TextView) itemView.findViewById(R.id.topics_item_name);
+        title = (TextView) itemView.findViewById(R.id.topics_item_title);
         //content = (TextView) itemView.findViewById(R.id.new_topics_item_content);
-        node = (TextView) itemView.findViewById(R.id.new_topics_item_node);
-        reply = (TextView) itemView.findViewById(R.id.new_topics_item_reply);
-        img = (ImageView) itemView.findViewById(R.id.new_topics_item_img);
+        node = (TextView) itemView.findViewById(R.id.topics_item_node);
+        reply = (TextView) itemView.findViewById(R.id.topics_item_reply);
+        img = (ImageView) itemView.findViewById(R.id.topics_item_img);
     }
 }

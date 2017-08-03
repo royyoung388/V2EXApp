@@ -1,21 +1,19 @@
 package com.roy.v2exapp.ui.activity;
 
-import android.content.Context;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.roy.v2exapp.R;
 import com.roy.v2exapp.beans.POJO;
-import com.roy.v2exapp.presenter.V2EXPresenter;
+import com.roy.v2exapp.presenter.Presenter;
 import com.roy.v2exapp.ui.view.PagerAdapter;
 import com.roy.v2exapp.utils.Info;
 import com.viewpagerindicator.TabPageIndicator;
 
-public class MainActivity extends AppCompatActivity implements activityView {
+public class MainActivity extends ActivityViewAdapter {
 
-    private V2EXPresenter presenter = new V2EXPresenter(this);
+    private Presenter presenter = new Presenter(this);
 
     private ViewPager mViewPager;
     private TabPageIndicator indicator;
@@ -45,11 +43,28 @@ public class MainActivity extends AppCompatActivity implements activityView {
     }
 
     @Override
-    public void setAdapter(POJO[] POJOs, int adapterType) {
-        switch (adapterType) {
+    public void onFailed(int type) {
+        //Toast.makeText(this, "网络错误,刷新试试", Toast.LENGTH_SHORT).show();
+        switch (type) {
             case Info.LOAD_ALL_NODES:
+                pagerAdapter.allNodesFragment.onFailed();
                 break;
-            case Info.LOAD_HOT_NODES:
+            case Info.LOAD_HOT_TOPICS:
+                pagerAdapter.hotTopicsFragment.onFailed();
+                break;
+            case Info.LOAD_NEW_TOPICS:
+                pagerAdapter.newTopicsFragment.onFailed();
+                break;
+        }
+    }
+
+    @Override
+    public void setData(POJO[] POJOs, int dataType) {
+        switch (dataType) {
+            case Info.LOAD_ALL_NODES:
+                pagerAdapter.allNodesFragment.setAdapter(POJOs);
+                break;
+            case Info.LOAD_HOT_TOPICS:
                 pagerAdapter.hotTopicsFragment.setAdapter(POJOs);
                 break;
             case Info.LOAD_NEW_TOPICS:
@@ -59,13 +74,17 @@ public class MainActivity extends AppCompatActivity implements activityView {
     }
 
     @Override
-    public Context getContext() {
-        return this;
+    public void getNewTopics() {
+        presenter.getNewTopics();
     }
 
     @Override
-    public void getModel(int type) {
-        //加载数据
-        presenter.getModel(type);
+    public void getHotTopics() {
+        presenter.getHotTopics();
+    }
+
+    @Override
+    public void getAllNodes() {
+        presenter.getAllNodes();
     }
 }

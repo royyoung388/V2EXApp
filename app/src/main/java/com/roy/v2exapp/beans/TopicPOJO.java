@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by roy on 17-8-1.
  */
 
-public class NewTopicsPOJO implements POJO{
+public class TopicPOJO implements POJO{
     private int id;
     private String title;
     private String url;

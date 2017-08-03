@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.roy.v2exapp.ui.fragment.AllNodesFragment;
 import com.roy.v2exapp.ui.fragment.HotTopicsFragment;
 import com.roy.v2exapp.ui.fragment.NewTopicsFragment;
 
@@ -13,11 +14,12 @@ import com.roy.v2exapp.ui.fragment.NewTopicsFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter {
 
-    //public static final String[] TITLE = new String[]{"最新主题", "最热主题", "所有节点"};
-    public static final String[] TITLE = new String[]{"最新主题", "最热主题"};
+    public static final String[] TITLE = new String[]{"最新主题", "最热主题", "所有节点"};
+    //public static final String[] TITLE = new String[]{"最新主题", "最热主题"};
 
     public NewTopicsFragment newTopicsFragment;
     public HotTopicsFragment hotTopicsFragment;
+    public AllNodesFragment allNodesFragment;
 
     public PagerAdapter(FragmentManager fm) {
         super(fm);
@@ -34,6 +36,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 if (hotTopicsFragment == null)
                     hotTopicsFragment = new HotTopicsFragment();
                 return hotTopicsFragment;
+            case 2:
+                if (allNodesFragment == null) {
+                    allNodesFragment = new AllNodesFragment();
+                }
+                return allNodesFragment;
         }
         return null;
     }
